@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    collection:[{
+    savedcollection:[{
       saved:{
         type:String
       }

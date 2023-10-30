@@ -53,7 +53,7 @@ const userController = {
         let userId = req.params.id
         let user = await User.findById(userId);
         if(user){
-            res.status(200).json(user.collection)
+            res.status(200).json(user.savedcollection)
         }else{
             res.status(401)
             throw new Error("Failed to fetch collection")
@@ -66,11 +66,11 @@ const userController = {
         
         let user = await User.findById(userId)
         if(user){
-            let newArr = user.collection.filter((item)=>item._id != savedId)
-            user.collection = newArr
+            let newArr = user.savedcollection.filter((item)=>item._id != savedId)
+            user.savedcollection = newArr
             let saveData = await user.save()
             if(saveData){
-                res.status(200).json(saveData.collection)
+                res.status(200).json(saveData.savedcollection)
             }
         }else{
             res.status(401)
@@ -83,7 +83,7 @@ const userController = {
         let userId = req.user._id
         let user = await User.findById(userId)
         if(user){
-            user.collection.push({ saved: result }); 
+            user.savedcollection.push({ saved: result }); 
             await user.save()
             res.status(200).json(user);
         }else{
